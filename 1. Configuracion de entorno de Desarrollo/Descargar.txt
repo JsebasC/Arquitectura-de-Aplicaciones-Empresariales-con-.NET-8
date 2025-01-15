@@ -1,0 +1,8 @@
+1. Azure Data Studio
+https://learn.microsoft.com/en-us/azure-data-studio/download-azure-data-studio?view=sql-server-2017&tabs=win-install%2Cwin-user-install%2Credhat-install%2Cwindows-uninstall%2Credhat-uninstall
+
+2. Descargar sdk .NET
+https://dotnet.microsoft.com/es-es/download
+
+3. Descargar 
+instnwnd.sql

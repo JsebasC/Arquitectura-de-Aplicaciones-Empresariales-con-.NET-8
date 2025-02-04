@@ -1,6 +1,9 @@
 # Arquitectura de Aplicaciones Empresariales con .NET 8
 
-Todo lo que necesitas para diseñar y construir Aplicaciones con una Arquitectura robusta, segura, confiable y escalable..
+Todo lo que necesitas para diseñar y construir Aplicaciones con una Arquitectura robusta, segura, confiable y escalable.. 
+No es una guia definitiva, falla en la definición de principio SOLID, pero es el inicio para que comienzes a escribir codigo ordenado y escalable....
+
+Fuente : https://www.udemy.com/course/arquitectura-aplicaciones-empresariales-con-net-core/
 
 ## Tabla de Contenidos
 

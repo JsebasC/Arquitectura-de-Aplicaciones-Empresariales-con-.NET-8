@@ -1,6 +1,8 @@
 # Arquitectura de Aplicaciones Empresariales con .NET 8
 
-Todo lo que necesitas para diseñar y construir Aplicaciones con una Arquitectura robusta, segura, confiable y escalable..
+Todo lo que necesitas para diseñar y construir Aplicaciones con una Arquitectura robusta, segura, confiable y escalable.. (Esto es una guia basica, no definitiva, esta guia ignora Buenas Practicas, Codigo limpio y Principios SOLID ) 
+
+Fuente : https://www.udemy.com/course/arquitectura-aplicaciones-empresariales-con-net-core/?couponCode=KEEPLEARNING
 
 ## Tabla de Contenidos
 
@@ -12,12 +14,8 @@ Todo lo que necesitas para diseñar y construir Aplicaciones con una Arquitectur
    - [Principios de Diseño Solid ](#principios-de-diseño-solid)   
    - [Principales Estilos de Arquitectura ](#principales-estilos-de-arquitectura)   
 2. [Arquitectura N-Capas con Orientacion al Dominio](#arquitectura-n-capas-con-orientacion-al-dominio)
-3. [Estructura del Curso](#estructura-del-curso)
-4. [Materiales del Curso](#materiales-del-curso)
-5. [Notas por Tema](#notas-por-tema)
-6. [Recursos Adicionales](#recursos-adicionales)
-7. [Conclusiones](#conclusiones)
-8. [Contacto](#contacto)
+3. [Definicion JSON Web Token(JWT)](#definicion-json-web-tokenjwt)
+
 
 
 ## Fundamentos Arquitectura de Aplicaciones
@@ -221,3 +219,11 @@ En el contexto de la creación de aplicaciones, DDD hace referencia a los proble
 1. Nivel de aplicacion: Este nivel debe mantenerse estrecho. No contiene reglas de negocios ni conocimientos, sino que solo coordina tareas y delega trabajo a colaboraciones de objetos de dominio en el siguiente nivel
 2. Nivel del Modelado del Dominio: Responsable de representar conceptos del negocio, información sobre la situación del negocio y reglas de negocio
 3. Nivel de Infraestructura: Es la forma en que los datos inicialmente se conservan en las entidades de dominio se guardan en base de datos o en otro almacen
+
+
+## Definicion JSON Web Token(JWT)
+Un token es una cadena alfanumérica con caracteres aparantemente aleatorios, los JWT engloba una estructura, la cual puede ser desencriptada por el servidor y de esta forma, autenticarnos como usuario en la aplicación.
+
+
+<img src="imagenes/EstructuraJWT.png" alt="EstructuraJWT" width="600" />
+<img src="imagenes/JWT-lifecycle.png" alt="lifecycle" width="600" />

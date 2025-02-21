@@ -10,6 +10,7 @@ using Pacagroup.Ecommerce.Infrastructure.Interface;
 using Pacagroup.Ecommerce.Infrastructure.Repository;
 using Pacagroup.Ecommerce.Services.WebApi.Helpers;
 using Pacagroup.Ecommerce.Transversal.Common;
+using Pacagroup.Ecommerce.Transversal.Logging;
 using Pacagroup.Ecommerce.Transversal.Mapper;
 using System.Text;
 
@@ -35,7 +36,7 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 
-    c.AddSecurityDefinition("Authorization", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         Description = "Ingrese un token válido",
         Name = "Authorization",
@@ -51,7 +52,7 @@ builder.Services.AddSwaggerGen(c =>
                 Reference = new OpenApiReference
                 {
                     Type = ReferenceType.SecurityScheme,
-                    Id = "Authorization",                    
+                    Id = "Bearer",
                 }
             },
             new string[] { }
@@ -62,6 +63,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddAutoMapper(typeof(MappingsProfile));
 var appSettings = configuraciones.GetSection("Config").Get<AppSettings>();
+builder.Services.AddSingleton(appSettings!);
 
 builder.Services.AddSingleton<IConnectionFactory, ConnectionFactory>();
 builder.Services.AddScoped<ICustomersApplication, CustomersApplication>();
@@ -70,7 +72,7 @@ builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
 builder.Services.AddScoped<IUsersApplication, UsersApplication>();
 builder.Services.AddScoped<IUsersDomain, UsersDomain>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
-builder.Services.AddSingleton(appSettings!);
+builder.Services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 
 var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 var issuer = appSettings.Issuer;

@@ -15,8 +15,12 @@ Fuente : https://www.udemy.com/course/arquitectura-aplicaciones-empresariales-co
    - [Principales Estilos de Arquitectura ](#principales-estilos-de-arquitectura)   
 2. [Arquitectura N-Capas con Orientacion al Dominio](#arquitectura-n-capas-con-orientacion-al-dominio)
 3. [Definicion JSON Web Token(JWT)](#definicion-json-web-tokenjwt)
-
-
+4. [Métricas de Código](#métricas-de-código)
+  - [Indice de Mantenibilidad](#indice-de-mantenibilidad)
+  - [Complejidad Ciclomática](#complejidad-ciclomática)
+  - [Profundidad de la Herencia](#profundidad-de-la-herencia)
+  - [Acoplamiento de Clases](#acoplamiento-de-clases)
+  - [Líneas de Código](#línea-de-código)
 
 ## Fundamentos Arquitectura de Aplicaciones
 El diseño de la arquitectura de una aplicación es el proceso por el cual se define una solución para los requisitos técnicos y operacionales del mismo
@@ -227,3 +231,46 @@ Un token es una cadena alfanumérica con caracteres aparantemente aleatorios, lo
 
 <img src="imagenes/EstructuraJWT.png" alt="EstructuraJWT" width="600" />
 <img src="imagenes/JWT-lifecycle.png" alt="lifecycle" width="600" />
+
+
+## Métricas de Código
+
+Las metricas de codigo son un conjunto de medidas de software que brindan a los desarrolladores una mejor compresión del codigo que estan desarrollando
+
+<img src="imagenes/metricas.png" alt="metricas" width="300" />
+
+
+### Indice de Mantenibilidad
+Calcula un valor de indice entre 0 y 100, lo cual representa la relativa facilidad de mantener el codigo. Un valor alto significa una mejor mantenibilidad del codigo
+
+#### Umbrales : 
+* 0-9 = Rojo, 10-19 = Amarillo, 20-100 = Verde
+
+### Complejidad Ciclomática
+Mide la complejidad estructural del código. Se obtiene calculando el número de diferentes rutas de código en el flujo del programa. Un programa que tiene un flujo de control complejo requiere más pruebas para lograr una buena cobertura de código y es menos mantenible
+
+#### Umbrales : 
+* Valores Bajos
+
+### Profundidad de la Herencia
+Indica la cantidad de clases diferentes que se heredan entre si, hasta la clase base. La profundidad de herencia es similar al acoplamiento de clases en que un cambio en una clase base puede afectar a cualquiera de sus clases heredadas. Cuanto mayor sea este numero, mayor sera la herencia y mayor sera la posibilidad de que las modificaciones de la clase base produzcan un cambio radical.
+
+#### Umbrales : 
+* Valores Bajos
+
+### Acoplamiento de Clases
+Mide el acoplamiento a clases unicas a traves de parametros, variables locales, tipos de retorno, llamadas a metodos, etc
+
+Un buen diseño de software dicta que los tipos y metodos deben tener una alta cohesion y un bajo acoplamiento. El alto acoplamiento indica un diseño que es dificil de reutilizar y mantener debido a sus muchas interdependencias con otros tipos
+
+#### Umbrales : 
+* Valores Bajos
+
+### Líneas de Código
+Indica el numero exacto de lineas de codigo fuente que estan presentes en su archivo fuente, incluidas las lineas en blanco. Esta metrica esta disponible a partir de Visual Studio 2019 version 16.4 y Microsoft.CodeAnalysis.Metrics(2.9.5)
+
+#### Umbrales : 
+* 30 lineas por metodo
+
+
+<img src="imagenes/analisis.png" alt="analisis" width="1024"  />

@@ -5,6 +5,7 @@ using Pacagroup.Ecommerce.Domain.Interface;
 using Pacagroup.Ecommerce.Infrastructure.Data;
 using Pacagroup.Ecommerce.Infrastructure.Interface;
 using Pacagroup.Ecommerce.Infrastructure.Repository;
+using Pacagroup.Ecommerce.Services.WebApi.Helpers;
 using Pacagroup.Ecommerce.Transversal.Common;
 using Pacagroup.Ecommerce.Transversal.Mapper;
 
@@ -32,11 +33,16 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddAutoMapper(typeof(MappingsProfile));
+var appSettings = configuraciones.GetSection("Config").Get<AppSettings>();
 
 builder.Services.AddSingleton<IConnectionFactory, ConnectionFactory>();
 builder.Services.AddScoped<ICustomersApplication, CustomersApplication>();
 builder.Services.AddScoped<ICustomersDomain, CustomersDomain>();
 builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
+builder.Services.AddScoped<IUsersApplication, UsersApplication>();
+builder.Services.AddScoped<IUsersDomain, UsersDomain>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddSingleton(appSettings);
 
 string[]? corsOrigenes = configuraciones.GetSection("CorsOrigenes").Get<string[]>();
 builder.Services.AddCors(op =>
@@ -59,6 +65,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mi API v1"));
 }
 app.UseCors("MyPoliceCors");
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

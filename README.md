@@ -16,11 +16,12 @@ Fuente : https://www.udemy.com/course/arquitectura-aplicaciones-empresariales-co
 2. [Arquitectura N-Capas con Orientacion al Dominio](#arquitectura-n-capas-con-orientacion-al-dominio)
 3. [Definicion JSON Web Token(JWT)](#definicion-json-web-tokenjwt)
 4. [Métricas de Código](#métricas-de-código)
-  - [Indice de Mantenibilidad](#indice-de-mantenibilidad)
-  - [Complejidad Ciclomática](#complejidad-ciclomática)
-  - [Profundidad de la Herencia](#profundidad-de-la-herencia)
-  - [Acoplamiento de Clases](#acoplamiento-de-clases)
-  - [Líneas de Código](#línea-de-código)
+    - [Indice de Mantenibilidad](#indice-de-mantenibilidad)
+    - [Complejidad Ciclomática](#complejidad-ciclomática)
+    - [Profundidad de la Herencia](#profundidad-de-la-herencia)
+    - [Acoplamiento de Clases](#acoplamiento-de-clases)
+    - [Líneas de Código](#línea-de-código)
+5. [Versionar un API](#versionar-un-api)
 
 ## Fundamentos Arquitectura de Aplicaciones
 El diseño de la arquitectura de una aplicación es el proceso por el cual se define una solución para los requisitos técnicos y operacionales del mismo
@@ -274,3 +275,37 @@ Indica el numero exacto de lineas de codigo fuente que estan presentes en su arc
 
 
 <img src="imagenes/analisis.png" alt="analisis" width="1024"  />
+
+## Versionar un API
+El control de versiones de API es uno de los ingredientes mas importantes de una estrategia de API exitosa porque es uno de los puntos de contacto mas importante entre los proveedores de API y los consumidores de API
+
+Endenter por que?: API, es una promesa de realizar los servicios descritos cuando se le solicite de manera especifica,
+- un contrato nunca debe ser roto  unilateralmente por ninguna de las partes y las consecuencias de ello seran siempre negativas
+- un control de versiones de API deficiente conducira a la inestabilidad y provocara fricciones con nuestros consumidores de API, al contrario, un control de versiones de API solido conducira a la estabilidad y mejorara la experiencia del desarrollador
+
+Saber cuando?: Las APIs, son contratos vivos y deberian poder crecer y mejorar de manera continua, sin embargo, esto no significa la ruptura del contrato continuamente. La clave esta en comprender que cambios implican la ruptura del contrato y cuales no. Recuerde, lo mas que le encantara a un consumidor de API es la estabilidad
+- Que cambios romperan un contrato API?, cambios continuos tienden a aser aditivos, agregar nuevos campos o recursos anidados a sus representaciones de recursos, agregar nuevos puntos finales
+- Los cambios importantes son cambios que requieren que el consumidor de la api realice adecuaciones para continuar consumiendo la API
+  - Eliminar o cambiar el nombre de una ruta
+  - Eliminar/Renombrar parametros
+  - Agregue una restriccion en un parametro, como isRequired
+  - Eliminar/Cambiar el nombre de un elemento(campo) de solicitud o respuesta
+- La unica forma de minimizar la consecuencias es un plan de comunicacion solido para ayudar al consumidor de API a planificar cuando integrar la nueva version de API
+
+Decidir como? 
+- Tipos de Versiones de API
+  - Parametros de Consulta (Query String),  https://api.example.com/users/{id}?version=v1
+  
+  <img src="imagenes/query-string-versioning.png" alt="query-string-versioning" width="350"  />
+
+
+  - Encabezado personalizado (Header), GET https://api.example.com/users/{id} with header Api-Version: 2.0 
+  - Parametros en la URI (Path), https://api.example.com/v1/users/{id} 
+
+
+- Versionado semantico como major.minor.patch por ejemplo 1.2.0
+  - Version PRINCIPAL, cuando realiza cambios que rompen el contrato de la API
+  - Version MENOR, cuando agrega funcionalidad de manera compatible con versiones anteriores
+  - Version PATCH, cuando realiza correciones de errores compatibles con versiones anteriores 
+
+Los valores MINOR y PATCH son transparentes para el cliente y se utilizaran internamente 

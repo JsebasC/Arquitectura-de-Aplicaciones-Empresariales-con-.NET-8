@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger
@@ -8,27 +10,11 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger
     {
         public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "Pacagroup Technology Services API Market",
-                    Description = "A simple example ASP.NET Core Web API",
-                    TermsOfService = new Uri("https://pacagroup.com/terms"),
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Alex Espejo",
-                        Email = "alex.espejo.c@gmail.com",
-                        Url = new Uri("https://pacagroup.com/contact")
-                    },
-                    License = new OpenApiLicense
-                    {
-                        Name = "Use under LICX",
-                        Url = new Uri("https://pacagroup.com/licence")
-                    }
-                });
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

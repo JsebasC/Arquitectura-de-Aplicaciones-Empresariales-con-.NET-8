@@ -9,11 +9,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
+namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v1
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class UsersController : Controller
     {
         private readonly IUsersApplication _usersApplication;
@@ -44,7 +45,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new System.Security.Claims.ClaimsIdentity([
+                Subject = new ClaimsIdentity([
                 new Claim(ClaimTypes.Name, usersDto.Data.UserId.ToString())
                 ]),
                 Expires = DateTime.UtcNow.AddMinutes(1),

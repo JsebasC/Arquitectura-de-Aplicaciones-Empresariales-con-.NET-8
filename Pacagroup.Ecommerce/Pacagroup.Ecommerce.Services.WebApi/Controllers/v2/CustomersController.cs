@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Interface;
 
-namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
+namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("2.0")]
     public class CustomersController : ControllerBase
     {
         private readonly ICustomersApplication _customersApplication;
@@ -31,9 +32,13 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpPut()]
-        public IActionResult Update([FromBody] CustomersDto customersDto)
+        [HttpPut("{customerId}")]
+        public IActionResult Update(string customerId, [FromBody] CustomersDto customersDto)
         {
+            var customerDto = _customersApplication.Get(customerId);
+            if (customerDto.IsSuccess)
+                return NotFound(customerDto.Message);
+
             if (customersDto == null)
                 return BadRequest();
 

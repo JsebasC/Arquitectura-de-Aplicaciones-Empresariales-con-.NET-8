@@ -2,6 +2,7 @@ using Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Feature;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Injection;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger;
+using Pacagroup.Ecommerce.Services.WebApi.Modules.Validator;
 using Pacagroup.Ecommerce.Transversal.Mapper;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,7 @@ builder.Services.AddFeature(builder.Configuration);
 builder.Services.AddInjection();
 builder.Services.AddAuthenticationExtension(builder.Configuration);
 builder.Services.AddSwagger();
+builder.Services.AddValidator();
 
 var app = builder.Build();
 

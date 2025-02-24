@@ -35,7 +35,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers
                 response.Data.Token = ConstruirToken(response);
                 return Ok(response);
             }
-            return NotFound(response.Message);
+            return NotFound(response);
         }
 
         private string ConstruirToken(Response<UsersDto> usersDto)

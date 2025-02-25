@@ -300,6 +300,9 @@ Decidir como?
 
 
   - Encabezado personalizado (Header), GET https://api.example.com/users/{id} with header Api-Version: 2.0 
+
+  <img src="imagenes/header-versioning.png" alt="header-versioning" width="350"  />
+
   - Parametros en la URI (Path), https://api.example.com/v1/users/{id} 
 
 

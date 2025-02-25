@@ -1,6 +1,8 @@
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Feature;
+using Pacagroup.Ecommerce.Services.WebApi.Modules.HealthCheck;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Injection;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Validator;
@@ -22,6 +24,7 @@ builder.Services.AddAuthenticationExtension(builder.Configuration);
 builder.Services.AddVersioning();
 builder.Services.AddSwagger();
 builder.Services.AddValidator();
+builder.Services.AddHealthCheck(builder.Configuration);
 
 var app = builder.Build();
 var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
@@ -43,4 +46,11 @@ app.UseCors("MyPoliceCors");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapHealthChecksUI();
+app.MapHealthChecks("/health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+
 app.Run();

@@ -22,6 +22,8 @@ Fuente : https://www.udemy.com/course/arquitectura-aplicaciones-empresariales-co
     - [Acoplamiento de Clases](#acoplamiento-de-clases)
     - [Líneas de Código](#línea-de-código)
 5. [Versionar un API](#versionar-un-api)
+6. [Patrón Health Check](#patrón-health-check)
+
 
 ## Fundamentos Arquitectura de Aplicaciones
 El diseño de la arquitectura de una aplicación es el proceso por el cual se define una solución para los requisitos técnicos y operacionales del mismo
@@ -314,3 +316,24 @@ Decidir como?
   - Version PATCH, cuando realiza correciones de errores compatibles con versiones anteriores 
 
 Los valores MINOR y PATCH son transparentes para el cliente y se utilizaran internamente 
+
+## Patrón Health Check
+Los Health Check o comprobaciones de salud nos permite determinar el estado general y la disponibilidad de nuestra infraestructura de aplicaciones.
+  - Se exponen como endpoints HTTP y se pueden configurar para proporcionar informacion para varios escenarios de monitoreo, como el tiempo de respuesta y el uso de memoria de nuestra aplicacion o si nuestra aplicacion puede comunicrase con nuestro proveedor de base de datos(Healthy, Degraded, Unhealthy)
+
+- /health
+- /healthchecks-ui
+
+### Tipos : 
+- Basic health probes(pruebas basicas de salud), Estas comprobaciones permiten determinar si nuestra aplicacion esta saludable o no
+- System (Sistema), Brindan una gran cantidad de información, como el almacenimiento en disco y el uso de memoria del host
+- Database (Base de Datos), Permiten determinar si nuestro proveedor de base de datos esta en linea
+- Custom (Personalizados), permite comprobar un servicio de terceros o una api en la que se basa nuestra aplicacion. 
+
+Los servicios deben implementar un Endpoint de verificacion de estado, que devuelve el estado de salud del servicio
+
+Se requiere generar una alerta cuando falla una instancia de servicio y las solicitudes deben enrutarse a instancias de servicio en funcionamiento
+
+  <img src="imagenes/health-check.png" alt="health-check" width="350"  />
+
+

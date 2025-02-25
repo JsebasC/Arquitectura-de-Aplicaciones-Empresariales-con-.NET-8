@@ -303,7 +303,9 @@ Decidir como?
 
   <img src="imagenes/header-versioning.png" alt="header-versioning" width="350"  />
 
-  - Parametros en la URI (Path), https://api.example.com/v1/users/{id} 
+  - Parametros en la URI (Path), https://api.example.com/v1/users/{id} es recomendable utilizar este versionamiento
+
+  <img src="imagenes/path-versioning.png" alt="path-versioning" width="350"  />
 
 
 - Versionado semantico como major.minor.patch por ejemplo 1.2.0

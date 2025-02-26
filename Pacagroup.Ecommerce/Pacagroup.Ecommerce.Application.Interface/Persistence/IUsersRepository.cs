@@ -1,6 +1,6 @@
 ﻿
 
-using Pacagroup.Ecommerce.Domain.Entity;
+using Pacagroup.Ecommerce.Domain.Entities;
 
 namespace Pacagroup.Ecommerce.Application.Interface.Persistence
 {

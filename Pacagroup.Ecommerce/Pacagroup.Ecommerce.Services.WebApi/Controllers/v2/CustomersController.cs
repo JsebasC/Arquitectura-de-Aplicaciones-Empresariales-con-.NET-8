@@ -85,6 +85,16 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
             return BadRequest();
         }
 
+        [HttpGet("GetAllWithPagination")]
+        public IActionResult GetAllWithPagination([FromQuery] int pageNumber, int pageSize)
+        {
+            var response = _customersApplication.GetAllWithPagination(pageNumber, pageSize);
+            if (response.IsSuccess)
+                return Ok(response);
+
+            return BadRequest(response.Message);
+        }
+
         #endregion
 
         #region Metodos Asincronos
@@ -149,6 +159,16 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
                 return Ok(response);
 
             return BadRequest();
+        }
+
+        [HttpGet("GetAllWithPaginationAsync")]
+        public async Task<IActionResult> GetAllWithPaginationAsync([FromQuery] int pageNumber, int pageSize)
+        {
+            var response = await _customersApplication.GetAllWithPaginationAsync(pageNumber, pageSize);
+            if (response.IsSuccess)
+                return Ok(response);
+
+            return BadRequest(response.Message);
         }
 
         #endregion

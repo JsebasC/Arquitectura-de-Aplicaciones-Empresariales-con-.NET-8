@@ -9,6 +9,8 @@
         bool Delete(string entityId);
         T Get(string entityId);
         IEnumerable<T> GetAll();
+        IEnumerable<T> GetAllWithPagination(int pageNumber, int pageSize);
+        int Count();
 
         #endregion
 
@@ -19,6 +21,8 @@
         Task<bool> DeleteAsync(string entityId);
         Task<T> GetAsync(string entityId);
         Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllWithPaginationAsync(int pageNumber, int pageSize);
+        Task<int> CountAsync();
 
         #endregion
     }

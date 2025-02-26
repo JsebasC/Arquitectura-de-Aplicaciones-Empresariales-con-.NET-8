@@ -3,6 +3,7 @@ using Pacagroup.Ecommerce.Domain.Entity;
 using Pacagroup.Ecommerce.Infrastructure.Data;
 using Pacagroup.Ecommerce.Infrastructure.Interface;
 using Pacagroup.Ecommerce.Transversal.Common;
+using System.Data;
 
 namespace Pacagroup.Ecommerce.Infrastructure.Repository
 {
@@ -94,6 +95,24 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
             }
         }
 
+        public IEnumerable<Customers> GetAllWithPagination(int pageNumber, int pageSize)
+        {
+
+            using var connection = _dapperContext.CreateConnection();
+            const string query = "CustomersListWithPagination";
+            var parameters = new DynamicParameters();
+            parameters.Add("PageNumber", pageNumber);
+            parameters.Add("PageSize", pageSize);
+            return connection!.Query<Customers>(query, param: parameters, commandType: System.Data.CommandType.StoredProcedure);
+        }
+        public int Count()
+        {
+            using var connection = _dapperContext.CreateConnection();
+            var query = "SELECT COUNT(*) from Customers";
+            return connection.ExecuteScalar<int>(query, commandType: System.Data.CommandType.Text);
+        }
+
+
         #endregion
 
         #region Metodos Asincronos
@@ -176,6 +195,26 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
             }
         }
 
+        public async Task<IEnumerable<Customers>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
+        {
+            using var connection = _dapperContext.CreateConnection();
+            var query = "CustomersListWithPagination";
+            var parameters = new DynamicParameters();
+            parameters.Add("PageNumber", pageNumber);
+            parameters.Add("PageSize", pageSize);
+
+            var customers = await connection.QueryAsync<Customers>(query, param: parameters, commandType: CommandType.StoredProcedure);
+            return customers;
+        }
+
+        public async Task<int> CountAsync()
+        {
+            using var connection = _dapperContext.CreateConnection();
+            var query = "Select Count(*) from Customers";
+
+            var count = await connection.ExecuteScalarAsync<int>(query, commandType: CommandType.Text);
+            return count;
+        }
 
         #endregion
     }

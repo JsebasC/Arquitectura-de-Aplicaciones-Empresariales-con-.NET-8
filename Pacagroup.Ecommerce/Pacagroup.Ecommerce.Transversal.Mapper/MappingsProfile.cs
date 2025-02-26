@@ -12,6 +12,7 @@ namespace Pacagroup.Ecommerce.Transversal.Mapper
             //CreateMap<Customers, CustomersDto>().ReverseMap()
             //    .ForMember(destination => destination.CustomerId, source => source.MapFrom(src => src.CustomerId));
             CreateMap<Users, UsersDto>().ReverseMap();
+            CreateMap<Categories, CategoriesDto>().ReverseMap();
         }
     }
 }

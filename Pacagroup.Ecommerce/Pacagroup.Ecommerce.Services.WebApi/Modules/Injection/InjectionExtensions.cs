@@ -12,10 +12,10 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Injection
 {
     public static class InjectionExtensions
     {
-        public static IServiceCollection AddInjection(this IServiceCollection services)
+        public static IServiceCollection AddInjection(this IServiceCollection services, IConfiguration configuration)
         {
-
-            services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+            services.AddSingleton<IConfiguration>(configuration);
+            services.AddSingleton<DapperContext>();
             services.AddScoped<ICustomersApplication, CustomersApplication>();
             services.AddScoped<ICustomersDomain, CustomersDomain>();
             services.AddScoped<ICustomersRepository, CustomersRepository>();

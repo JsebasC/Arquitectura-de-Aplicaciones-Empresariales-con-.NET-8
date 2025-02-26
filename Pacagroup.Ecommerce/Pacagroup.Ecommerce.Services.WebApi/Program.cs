@@ -19,7 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAutoMapper(typeof(MappingsProfile));
 
 builder.Services.AddFeature(builder.Configuration);
-builder.Services.AddInjection();
+builder.Services.AddInjection(builder.Configuration);
 builder.Services.AddAuthenticationExtension(builder.Configuration);
 builder.Services.AddVersioning();
 builder.Services.AddSwagger();

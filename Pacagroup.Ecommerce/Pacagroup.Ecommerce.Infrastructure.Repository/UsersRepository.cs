@@ -1,22 +1,22 @@
 ﻿using Dapper;
 using Pacagroup.Ecommerce.Domain.Entity;
-using Pacagroup.Ecommerce.Domain.Interface;
-using Pacagroup.Ecommerce.Transversal.Common;
+using Pacagroup.Ecommerce.Infrastructure.Data;
+using Pacagroup.Ecommerce.Infrastructure.Interface;
 
 namespace Pacagroup.Ecommerce.Infrastructure.Repository
 {
     public class UsersRepository : IUsersRepository
     {
-        private readonly IConnectionFactory _connectionFactory;
+        private readonly DapperContext _dapperContext;
 
-        public UsersRepository(IConnectionFactory connectionFactory)
+        public UsersRepository(DapperContext dapperContext)
         {
-            _connectionFactory = connectionFactory;
+            _dapperContext = dapperContext;
         }
 
         public Users Authenticate(string userName, string password)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _dapperContext.CreateConnection())
             {
                 var query = "UsersGetByUserAndPassword";
                 var parameters = new DynamicParameters();
@@ -25,6 +25,56 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
                 var user = connection.QuerySingle<Users>(query, param: parameters, commandType: System.Data.CommandType.StoredProcedure);
                 return user;
             }
+        }
+
+        public bool Delete(string entityId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteAsync(string entityId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Users Get(string entityId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Users> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Users>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Users> GetAsync(string entityId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Insert(Users entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> InsertAsync(Users entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(Users entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateAsync(Users entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

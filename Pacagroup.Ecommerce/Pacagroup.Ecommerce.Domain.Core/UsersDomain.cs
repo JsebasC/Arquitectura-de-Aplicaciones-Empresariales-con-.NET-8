@@ -1,5 +1,6 @@
 ﻿using Pacagroup.Ecommerce.Domain.Entity;
 using Pacagroup.Ecommerce.Domain.Interface;
+using Pacagroup.Ecommerce.Infrastructure.Interface;
 
 namespace Pacagroup.Ecommerce.Domain.Core
 {

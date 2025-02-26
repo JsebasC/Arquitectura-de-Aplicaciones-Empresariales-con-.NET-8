@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Pacagroup.Ecommerce.Domain.Entity;
+using Pacagroup.Ecommerce.Infrastructure.Data;
 using Pacagroup.Ecommerce.Infrastructure.Interface;
 using Pacagroup.Ecommerce.Transversal.Common;
 
@@ -7,17 +8,17 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 {
     public class CustomersRepository : ICustomersRepository
     {
-        private readonly IConnectionFactory _connectionFactory;
+        private readonly DapperContext _dapperContext;
 
-        public CustomersRepository(IConnectionFactory connectionFactory)
+        public CustomersRepository(DapperContext dapperContext)
         {
-            _connectionFactory = connectionFactory;
+            _dapperContext = dapperContext;
         }
 
         #region Metodos Sincronos
         public bool Insert(Customers customer)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _dapperContext.CreateConnection())
             {
                 const string query = "CustomersInsert";
                 var parameters = new DynamicParameters();
@@ -40,7 +41,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
         public bool Update(Customers customer)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _dapperContext.CreateConnection())
             {
                 const string query = "CustomersUpdate";
                 var parameters = new DynamicParameters();
@@ -63,7 +64,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
         public bool Delete(string customerId)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _dapperContext.CreateConnection())
             {
                 const string query = "CustomersDelete";
                 var parameters = new DynamicParameters();
@@ -75,7 +76,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
         public Customers Get(string customerId)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _dapperContext.CreateConnection())
             {
                 const string query = "CustomersGetByID";
                 var parameters = new DynamicParameters();
@@ -86,7 +87,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
         public IEnumerable<Customers> GetAll()
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _dapperContext.CreateConnection())
             {
                 const string query = "CustomersList";
                 return connection!.Query<Customers>(query, commandType: System.Data.CommandType.StoredProcedure);
@@ -99,7 +100,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
         public async Task<bool> InsertAsync(Customers customer)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _dapperContext.CreateConnection())
             {
                 const string query = "CustomersInsert";
                 var parameters = new DynamicParameters();
@@ -122,7 +123,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
         public async Task<bool> UpdateAsync(Customers customer)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _dapperContext.CreateConnection())
             {
                 const string query = "CustomersUpdate";
                 var parameters = new DynamicParameters();
@@ -145,7 +146,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
         public async Task<bool> DeleteAsync(string customerId)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _dapperContext.CreateConnection())
             {
                 const string query = "CustomersDelete";
                 var parameters = new DynamicParameters();
@@ -157,7 +158,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
  
         public async Task<Customers> GetAsync(string customerId)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _dapperContext.CreateConnection())
             {
                 const string query = "CustomersGetByID";
                 var parameters = new DynamicParameters();
@@ -168,7 +169,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
         public async Task<IEnumerable<Customers>> GetAllAsync()
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _dapperContext.CreateConnection())
             {
                 const string query = "CustomersList";
                 return await connection!.QueryAsync<Customers>(query, commandType: System.Data.CommandType.StoredProcedure);

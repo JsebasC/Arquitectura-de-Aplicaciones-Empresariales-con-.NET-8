@@ -1,5 +1,7 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Pacagroup.Ecommerce.Application.Features;
+using Pacagroup.Ecommerce.Persistence;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Feature;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.HealthCheck;
@@ -23,6 +25,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAutoMapper(typeof(MappingsProfile));
 
 builder.Services.AddFeature(builder.Configuration);
+builder.Services.AddPersistenceServices();
+builder.Services.AddApplicationServices();
 builder.Services.AddInjection(builder.Configuration);
 builder.Services.AddAuthenticationExtension(builder.Configuration);
 builder.Services.AddVersioning();

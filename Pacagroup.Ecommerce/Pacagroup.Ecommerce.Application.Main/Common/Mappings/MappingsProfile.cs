@@ -2,7 +2,7 @@
 using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Domain.Entities;
 
-namespace Pacagroup.Ecommerce.Transversal.Mapper
+namespace Pacagroup.Ecommerce.Application.Features.Common.Mapings
 {
     public class MappingsProfile : Profile
     {

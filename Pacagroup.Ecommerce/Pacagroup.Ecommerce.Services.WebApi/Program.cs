@@ -25,7 +25,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAutoMapper(typeof(MappingsProfile));
 
 builder.Services.AddFeature(builder.Configuration);
-builder.Services.AddPersistenceServices();
+builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddInjection(builder.Configuration);
 builder.Services.AddAuthenticationExtension(builder.Configuration);

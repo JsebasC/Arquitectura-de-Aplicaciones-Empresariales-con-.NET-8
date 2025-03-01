@@ -5,5 +5,6 @@
         ICustomersRepository Customers { get; }
         IUsersRepository Users { get; }
         ICategoriesRepository Categories { get; }
+        Task<int> Save(CancellationToken cancellationToken);
     }
 }

@@ -1,6 +1,6 @@
 # Arquitectura de Aplicaciones Empresariales con .NET 8
 
-Todo lo que necesitas para diseñar y construir Aplicaciones con una Arquitectura robusta, segura, confiable y escalable.. (Esto es una guia basica, no definitiva, esta guia ignora Buenas Practicas, Codigo limpio y Principios SOLID ) 
+Todo lo que necesitas para diseñar y construir Aplicaciones con una Arquitectura robusta, segura, confiable y escalable.. 
 
 Fuente : https://www.udemy.com/course/arquitectura-aplicaciones-empresariales-con-net-core/?couponCode=KEEPLEARNING
 
@@ -23,6 +23,8 @@ Fuente : https://www.udemy.com/course/arquitectura-aplicaciones-empresariales-co
     - [Líneas de Código](#línea-de-código)
 5. [Versionar un API](#versionar-un-api)
 6. [Patrón Health Check](#patrón-health-check)
+7. [Comunicación basada en Eventos](#comunicación-basada-en-eventos)
+    - [RabbitMQ](#rabbitmq)
 
 
 ## Fundamentos Arquitectura de Aplicaciones
@@ -337,3 +339,47 @@ Se requiere generar una alerta cuando falla una instancia de servicio y las soli
   <img src="imagenes/health-check.png" alt="health-check" width="350"  />
 
 
+## Comunicación basada en Eventos
+
+
+  <img src="imagenes/events.png" alt="events" width="650"  />
+
+Es util cuando solo se requiere comunicar o informar que algo sucedió, No se está solicitando ni pidiendo nada, por lo que no necesita una respuesta
+
+### Patrón Publisher-Subscriber
+Permite que una aplicacion anuncie ventos a varios consumidores interesados de forma asincrónica, sin vincular a los remitentes con los receptores
+
+<img src="imagenes/publisher-subscriber.png" alt="publisher-subscriber" width="550"  />
+
+#### Contexto y Problema
+- En las aplicaciones distribuidas o basadas en microservicios, a menudo los componentes del sistema necesitan proporcionar información a otros componentes a medida que ocurren los eventos
+- La mensajeria asincronica es una forma efectiva de desvincular a los publicadores de los consumidores y evitar bloquear al publicador para esperar una respuesta
+
+#### Solucion
+Introducir un sistema de mensajeria asincronica que incluya lo siguiente
+- Message Broker
+- Publisher
+- Subscriber
+- Mensaje: Eventos o Comandos
+- Canales
+#### Beneficios
+- Desacopla los subsistemas que todavia necesitan comunicarse
+- Aumenta la escalabilidad y mejora la capacidad de respuesta del publicador
+- Mejora la fiabilidad, soportan cargas de trabajo pesadas y manejo de fallas
+- Permite el procesamiento diferido o programado
+- Permite una integración más sencilla entre sistemas que utilizan diferentes plataformas, lenguajes de programación o protocolos de comunicación
+
+### RabbitMQ
+Es un broker de mensajeria de codigo abierto, distribuido y escalable, que sirve como intermediario para la comunicacion eficiente entre productores y consumidores
+
+https://www.rabbitmq.com/docs/download
+
+En RabbitMQ se definen colas que van a almacenar los mensajes que envian los productores hasta que las aplicaciones consumidoras obtienen el mensaje y lo procesan
+
+<img src="imagenes/rabbitmq.png" alt="rabbitmq" width="550"  />
+
+#### Tipos de Intercambios en RabbitMQ
+- Direct, El mensaje se enruta a las colas y las claves de enlace conside exactamente con la clave de enrutamiento del mensaje
+- Topic, Se basa en la concidencia de comodines entre la clave de enrutamiento y el patron de enrutamiento especificado en cada cola
+- Fanout, Enruta los mensaje a todas las colas vinculadas a el
+<img src="imagenes/rabbitmq-intercambios.png" alt="rabbitmq-intercambios" width="550"  />

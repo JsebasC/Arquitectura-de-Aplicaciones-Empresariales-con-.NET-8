@@ -34,11 +34,11 @@ builder.Services.AddRedisCache(builder.Configuration);
 builder.Services.AddRateLimiting(builder.Configuration);
 
 var app = builder.Build();
-var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
@@ -46,6 +46,18 @@ if (app.Environment.IsDevelopment())
         foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
         {
             c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+        }
+    });
+
+    //api-docs
+    app.UseReDoc(options =>
+    {
+        var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
+        foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
+        {
+            options.DocumentTitle = "Pacagroup Technology Services API Market";
+            options.SpecUrl = $"/swagger/{description.GroupName}/swagger.json";
         }
     });
 }

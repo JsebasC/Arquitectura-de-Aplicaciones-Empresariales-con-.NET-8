@@ -23,6 +23,7 @@ namespace Pacagroup.Ecommerce.Application.Features
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
                 cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
                 cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+                cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
             });
             services.AddScoped<ICustomersApplication, CustomersApplication>();
             services.AddScoped<IUsersApplication, UsersApplication>();

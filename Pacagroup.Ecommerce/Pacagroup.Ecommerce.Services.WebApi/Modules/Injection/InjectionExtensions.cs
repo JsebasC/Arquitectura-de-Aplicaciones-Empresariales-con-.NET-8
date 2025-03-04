@@ -1,6 +1,4 @@
 ﻿using Pacagroup.Ecommerce.Services.WebApi.Modules.GlobalException;
-using Pacagroup.Ecommerce.Transversal.Common;
-using Pacagroup.Ecommerce.Transversal.Logging;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Injection
 {
@@ -8,8 +6,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Injection
     {
         public static IServiceCollection AddInjection(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<IConfiguration>(configuration);           
-            services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
+            services.AddSingleton<IConfiguration>(configuration);                       
             services.AddTransient<GlobalExceptionHandler>();
 
             return services;

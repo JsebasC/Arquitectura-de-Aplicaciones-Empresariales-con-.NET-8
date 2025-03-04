@@ -401,3 +401,8 @@ En RabbitMQ se definen colas que van a almacenar los mensajes que envian los pro
 ![alt text](imagenes/orden-middleware.png)
 
 Los middlewares personalizados deben de colocarse entre el middleware de **Autorizacion ** y el de endpoints.
+
+## MediatR - Pipeline Behaviors
+Cada operaciones esta representada por solicitud o request y se envia al handler, la logica la implementa el handler, pero que pasa si quieres agregar loggin, exception, validation, catching etc
+
+![alt text](imagenes/behaviors.png)

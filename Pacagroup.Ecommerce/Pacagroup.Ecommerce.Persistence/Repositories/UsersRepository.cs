@@ -1,7 +1,9 @@
 ﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Domain.Entities;
 using Pacagroup.Ecommerce.Persistence.Contexts;
+using System.Data;
 
 namespace Pacagroup.Ecommerce.Persistence.Repositories
 {
@@ -14,7 +16,7 @@ namespace Pacagroup.Ecommerce.Persistence.Repositories
             _dapperContext = dapperContext;
         }
 
-        public User Authenticate(string userName, string password)
+        public async Task<User> Authenticate(string userName, string password)
         {
             using (var connection = _dapperContext.CreateConnection())
             {
@@ -22,7 +24,8 @@ namespace Pacagroup.Ecommerce.Persistence.Repositories
                 var parameters = new DynamicParameters();
                 parameters.Add("UserName", userName);
                 parameters.Add("Password", password);
-                var user = connection.QuerySingle<User>(query, param: parameters, commandType: System.Data.CommandType.StoredProcedure);
+
+                var user = await connection.QuerySingleOrDefaultAsync<User>(query, param: parameters, commandType: CommandType.StoredProcedure);
                 return user;
             }
         }
@@ -96,5 +99,7 @@ namespace Pacagroup.Ecommerce.Persistence.Repositories
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

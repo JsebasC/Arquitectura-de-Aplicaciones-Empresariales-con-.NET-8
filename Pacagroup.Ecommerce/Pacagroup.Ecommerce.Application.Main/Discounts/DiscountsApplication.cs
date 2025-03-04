@@ -8,7 +8,7 @@ using Pacagroup.Ecommerce.Domain.Entities;
 using Pacagroup.Ecommerce.Domain.Events;
 using Pacagroup.Ecommerce.Transversal.Common;
 
-namespace Pacagroup.Ecommerce.Application.UseCases.Discounts
+namespace Pacagroup.Ecommerce.Application.Features.Discounts
 {
     public class DiscountsApplication : IDiscountsApplication
     {

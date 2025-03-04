@@ -1,4 +1,5 @@
-﻿using Pacagroup.Ecommerce.Transversal.Common;
+﻿using Pacagroup.Ecommerce.Application.Features.Common.Exceptions;
+using Pacagroup.Ecommerce.Transversal.Common;
 using System.Net;
 using System.Text.Json;
 
@@ -18,6 +19,12 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.GlobalException
             try
             {
                 await next(context);
+            }
+            catch (ValidationExceptionCustom ex)
+            {
+                context.Response.ContentType = "application/json";
+                await JsonSerializer.SerializeAsync(context.Response.Body,
+                    new Response<object> { Message = "Errores de Validación", Errors = ex.Errors });
             }
             catch (Exception ex)
             {

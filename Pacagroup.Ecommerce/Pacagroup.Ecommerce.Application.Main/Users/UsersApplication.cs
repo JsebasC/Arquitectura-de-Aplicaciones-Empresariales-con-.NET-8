@@ -2,7 +2,6 @@
 using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Interface.Features;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
-using Pacagroup.Ecommerce.Application.Validator;
 using Pacagroup.Ecommerce.Transversal.Common;
 
 namespace Pacagroup.Ecommerce.Application.Features.Users
@@ -10,26 +9,17 @@ namespace Pacagroup.Ecommerce.Application.Features.Users
     public class UsersApplication : IUsersApplication
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly UsersDtoValidator _validationRules;
+        private readonly IMapper _mapper;        
 
-        public UsersApplication(IUnitOfWork unitOfWork, IMapper mapper, UsersDtoValidator validationRules)
+        public UsersApplication(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _validationRules = validationRules;
+            _mapper = mapper;            
         }
 
         public Response<UserDto> Authenticate(string userName, string password)
         {
             var response = new Response<UserDto>();
-            var validacion = _validationRules.Validate(new UserDto() { UserName = userName, Password = password });
-            if (!validacion.IsValid)
-            {
-                response.Message = "Errores de Validacion";
-                response.Errors = validacion.Errors;
-                return response;
-            }
             try
             {
                 var users = _unitOfWork.Users.Authenticate(userName, password);

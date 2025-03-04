@@ -3,7 +3,6 @@ using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Interface.Features;
 using Pacagroup.Ecommerce.Application.Interface.Infraestructure;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
-using Pacagroup.Ecommerce.Application.Validator;
 using Pacagroup.Ecommerce.Domain.Entities;
 using Pacagroup.Ecommerce.Domain.Events;
 using Pacagroup.Ecommerce.Transversal.Common;
@@ -14,14 +13,12 @@ namespace Pacagroup.Ecommerce.Application.Features.Discounts
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IEventBus _eventBust;
-        private readonly DiscountDtoValidator _discountDtoValidator;
+        private readonly IEventBus _eventBust;        
 
-        public DiscountsApplication(IUnitOfWork unitOfWork, IMapper mapper, DiscountDtoValidator discountDtoValidator, IEventBus eventBus)
+        public DiscountsApplication(IUnitOfWork unitOfWork, IMapper mapper, IEventBus eventBus)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _discountDtoValidator = discountDtoValidator;
+            _mapper = mapper;            
             _eventBust = eventBus;
         }
 
@@ -29,14 +26,7 @@ namespace Pacagroup.Ecommerce.Application.Features.Discounts
         {
             var response = new Response<bool>();
             try
-            {
-                var validation = await _discountDtoValidator.ValidateAsync(discountDto, cancellationToken);
-                if (!validation.IsValid)
-                {
-                    response.Message = "Errores de Validación";
-                    response.Errors = validation.Errors;
-                    return response;
-                }
+            {            
                 var discount = _mapper.Map<Discount>(discountDto);
                 await _unitOfWork.Discounts.InsertAsync(discount);
 
@@ -126,14 +116,7 @@ namespace Pacagroup.Ecommerce.Application.Features.Discounts
         {
             var response = new Response<bool>();
             try
-            {
-                var validation = await _discountDtoValidator.ValidateAsync(discountDto, cancellationToken);
-                if (!validation.IsValid)
-                {
-                    response.Message = "Errores de Validación";
-                    response.Errors = validation.Errors;
-                    return response;
-                }
+            {             
                 var discount = _mapper.Map<Discount>(discountDto);
                 await _unitOfWork.Discounts.UpdateAsync(discount);
 

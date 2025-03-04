@@ -10,5 +10,6 @@ namespace Pacagroup.Ecommerce.Application.Interface.Features
         Task<Response<bool>> Delete(int id, CancellationToken cancellationToken = default);
         Task<Response<DiscountDto>> Get(int id, CancellationToken cancellationToken = default);
         Task<Response<List<DiscountDto>>> GetAll(CancellationToken cancellationToken = default);
+        Task<ResponsePagination<IEnumerable<DiscountDto>>> GetAllWithPagination(int pageNumber, int pageSize);
     }
 }

@@ -25,6 +25,7 @@ Fuente : https://www.udemy.com/course/arquitectura-aplicaciones-empresariales-co
 6. [Patrón Health Check](#patrón-health-check)
 7. [Comunicación basada en Eventos](#comunicación-basada-en-eventos)
     - [RabbitMQ](#rabbitmq)
+8. [Middleware](#middleware)
 
 
 ## Fundamentos Arquitectura de Aplicaciones
@@ -383,3 +384,20 @@ En RabbitMQ se definen colas que van a almacenar los mensajes que envian los pro
 - Topic, Se basa en la concidencia de comodines entre la clave de enrutamiento y el patron de enrutamiento especificado en cada cola
 - Fanout, Enruta los mensaje a todas las colas vinculadas a el
 <img src="imagenes/rabbitmq-intercambios.png" alt="rabbitmq-intercambios" width="550"  />
+
+## Middleware
+- Componente que se ensambla en una canalizacion de una aplicacion para controlar las solicitudes y las respuestas.  Cada componente puede hacer lo siguiente
+  -  Elegir si se pasa la solicitud al siguiente componente de la canalizacion
+  - Realizar trabajos antes y despues del siguiente componente de la canalizacion
+- Es una serie de instrucciones de código que se agregan al ciclo de vida de una petición HTTP
+- Provee una ejecución de peticiones a través de capas
+- Facilitan la implementación de interceptores y filtros sobre las peticiones en una API
+- Se utilizan para manejar problemas transversales a un nivel inferior, como las excepciones, logs y validaciones
+
+### Pipeline Middleware
+
+![alt text](imagenes/funcionamiento-middleware.png)
+
+![alt text](imagenes/orden-middleware.png)
+
+Los middlewares personalizados deben de colocarse entre el middleware de **Autorizacion ** y el de endpoints.

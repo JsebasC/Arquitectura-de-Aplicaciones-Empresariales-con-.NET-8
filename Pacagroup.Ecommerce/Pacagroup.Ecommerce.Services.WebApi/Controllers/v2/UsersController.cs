@@ -8,6 +8,7 @@ using Pacagroup.Ecommerce.Transversal.Common;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Asp.Versioning;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
 {

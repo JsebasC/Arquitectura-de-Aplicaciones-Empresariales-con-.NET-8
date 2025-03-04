@@ -5,6 +5,7 @@ using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Interface.Features;
 using Pacagroup.Ecommerce.Transversal.Common;
 using Swashbuckle.AspNetCore.Annotations;
+using Asp.Versioning;
 
 namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
 {

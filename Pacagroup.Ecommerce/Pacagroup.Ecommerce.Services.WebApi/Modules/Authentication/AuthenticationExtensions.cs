@@ -16,6 +16,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication
             var issuer = appSettings.Issuer;
             var audience = appSettings.Audience;
 
+            services.AddHttpContextAccessor();
 
             services.AddAuthentication(auth =>
             {
@@ -34,7 +35,7 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication
                     {
                         if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
                         {
-                            context.Response.Headers.Add("Token-Expired", "true");
+                            context.Response.Headers.Append("Token-Expired", "true");
                         }
                         return Task.CompletedTask;
                     }

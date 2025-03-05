@@ -23,7 +23,7 @@ namespace Pacagroup.Ecommerce.Application.Features.Users
             try
             {
                 var users = _unitOfWork.Users.Authenticate(userName, password);
-                response.Data = _mapper.Map<UserDto>(users);
+                response.Data = _mapper.Map<UserDto>(users.Result);
                 response.IsSuccess = true;
                 response.Message = "Autenticacion Exitosa!!!";
             }

@@ -24,6 +24,13 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Feature
                 opts.JsonSerializerOptions.Converters.Add(enumConverter);
             });
 
+            services.AddRequestTimeouts(options =>
+            {
+                options.DefaultPolicy = 
+                    new Microsoft.AspNetCore.Http.Timeouts.RequestTimeoutPolicy { Timeout = TimeSpan.FromMilliseconds(1500) };
+                options.AddPolicy("CustomPolicy", TimeSpan.FromMilliseconds(2000));
+            });
+
             return services;
         }
     }

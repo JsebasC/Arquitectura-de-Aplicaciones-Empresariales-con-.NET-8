@@ -2,6 +2,7 @@
 using MediatR;
 using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Domain.Entities;
+using Pacagroup.Ecommerce.Domain.Specifications;
 using Pacagroup.Ecommerce.Transversal.Common;
 
 namespace Pacagroup.Ecommerce.Application.Features.Customers.Commands.CreateCustomerCommand
@@ -22,6 +23,17 @@ namespace Pacagroup.Ecommerce.Application.Features.Customers.Commands.CreateCust
             var response = new Response<bool>();
 
             var customer = _mapper.Map<Customer>(request);
+
+            /* Uso del Patrón Specificación */
+            var countryInBlackListSpec = new CountryInBlackListSpecification();
+            if (!countryInBlackListSpec.IsSatisfiedBy(customer))
+            {
+                response.IsSuccess = false;
+                response.Message = 
+                    $"Los clientes del pais {customer.Country} no se puden registrar porque se encuentra en lista negra.";
+                return response;
+            }
+
             response.Data = await _unitOfWork.Customers.InsertAsync(customer);
             if (response.Data)
             {
